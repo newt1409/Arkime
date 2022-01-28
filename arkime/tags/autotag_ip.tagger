@@ -1,5 +1,12 @@
 # Network Information
 # Individual IPs
+192.168.56.1;tags=firewall
+10.0.0.2;tags=firewall
+10.0.0.1;tags=WirelessAP
+10.0.0.3;tags=ESXi
+10.0.0.4;tags=Megatron
+10.0.0.7;tags=Admin_box
+176.56.16.1;tags=firewall
 10.0.0.10;tags=DNS
 192.168.56.102;tags=DC;tags=DNS
 

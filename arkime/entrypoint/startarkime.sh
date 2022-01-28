@@ -9,6 +9,7 @@
 #echo "Giving Elasticsearch time to start..."
 #sleep 20
 
+
 if (($INIT=TRUE))
 then
   # Initialize Elasticsearch for Arkime data.
@@ -20,7 +21,7 @@ fi
 # Start WISE service.
 echo "Starting WISE tagger."
 # This command seems to need to be run from the directory itself. During testing it wouldn't run properly unless you cd to the directory.
-/bin/bash -c 'cd /opt/arkime/wiseService; /opt/arkime/bin/node wiseService.js &'
+/bin/bash -c 'cd /opt/arkime/wiseService; /opt/arkime/bin/node wiseService.js --webconfig &'
 sleep 5
 
 if (($CAPTURE==TRUE))

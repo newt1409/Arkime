@@ -2,11 +2,11 @@ FROM ubuntu:20.04
 
 RUN apt update -y && \
     apt install -y gcc vim python3 python3-pip curl libwww-perl libjson-perl libyaml-dev ethtool && pip3 install xq && \
-    curl -C - -O "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-20.04/arkime_3.2.1-1_amd64.deb" && \
-    dpkg -i arkime_3.2.1-1_amd64.deb || true && \
-    apt-get install -yqf && \
+    curl -C - -O "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-20.04/arkime_3.3.0-1_amd64.deb" && \
+    dpkg -i arkime_3.3.0-1_amd64.deb || true && \
+    apt-get install -yqf
     # Pull maxmind Geo info for countries
-    curl -L -o /tmp/GeoLite2-Country.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=GDqrbhx8P5vE&suffix=tar.gz" && \
+RUN curl -L -o /tmp/GeoLite2-Country.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=GDqrbhx8P5vE&suffix=tar.gz" && \
     # Pull maxmind Geo info for ASNs
     curl -L -o /tmp/GeoLite2-ASN.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=GDqrbhx8P5vE&suffix=tar.gz" && \
     curl -L -o /opt/arkime/etc/ipv4-address-space.csv "https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.csv" && \
