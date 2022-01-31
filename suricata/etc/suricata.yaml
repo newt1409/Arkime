@@ -1805,6 +1805,7 @@ default-rule-path: /etc/suricata/rules
 rule-files:
  - misp_admin.rules
  - domain.rules
+ - windomain.rules
 ##
 ## Advanced rule file configuration.
 ##
