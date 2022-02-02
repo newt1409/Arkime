@@ -60,7 +60,8 @@ services:
     volumes:
       - ./suricata/rules:/etc/suricata/rules:z # Rules files.
       - ./suricata/etc/suricata.yaml:/etc/suricata/suricata.yaml:Z # Suricata.yaml to edit config
-      - ./suricata/logs/:/var/log/suricata:z # suricata logs for alerts and debug    
+      - ./suricata/logs/:/var/log/suricata:z # suricata logs for alerts and debug
+      - ./suricata-verify/:/etc/suricata/suricata-verify:z    
     network_mode: "host"
     cap_add:
       - NET_ADMIN
