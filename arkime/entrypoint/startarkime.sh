@@ -14,7 +14,7 @@ if (($INIT=TRUE))
 then
   # Initialize Elasticsearch for Arkime data.
   echo "Initializing elasticsearch database."
-  echo INIT | /opt/arkime/db/db.pl http://localhost:9200 init
+  echo INIT | /opt/arkime/db/db.pl --insecure http://localhost:9200 init
   /opt/arkime/bin/arkime_add_user.sh admin "Admin User" password --admin
 fi
 
@@ -28,7 +28,7 @@ if (($CAPTURE==TRUE))
 then
   # Start Capture service
   echo "Starting arkime-capture."
-  /bin/bash -c "/opt/arkime/bin/capture -c /opt/arkime/etc/config.ini --host $HOSTNAME >> /opt/arkime/logs/capture.log 2>&1 &"
+  /bin/bash -c "/opt/arkime/bin/capture --insecure -c /opt/arkime/etc/config.ini --host $HOSTNAME >> /opt/arkime/logs/capture.log 2>&1 &"
 fi
 
 # Start Viewer service.
