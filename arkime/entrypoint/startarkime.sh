@@ -9,13 +9,17 @@
 #echo "Giving Elasticsearch time to start..."
 #sleep 20
 
+#while true
+#do  
+#  sleep 2
+#done
 
 if (($INIT=TRUE))
 then
   # Initialize Elasticsearch for Arkime data.
   echo "Initializing elasticsearch database."
-  echo INIT | /opt/arkime/db/db.pl --insecure http://localhost:9200 init
-  /opt/arkime/bin/arkime_add_user.sh admin "Admin User" password --admin
+  echo INIT | /opt/arkime/db/db.pl --insecure --esuser $ELASTIC_USERNAME:$ELASTIC_PASSWORD https://localhost:9200 init
+  /opt/arkime/bin/arkime_add_user.sh --insecure admin "Admin User" password --admin
 fi
 
 # Start WISE service.
@@ -34,4 +38,4 @@ fi
 # Start Viewer service.
 echo "Starting arkime-viewer."
 cd /opt/arkime/viewer
-/bin/bash -c "/opt/arkime/bin/node viewer.js -c /opt/arkime/etc/config.ini >> /opt/arkime/logs/viewer.log 2>&1"
+/bin/bash -c "/opt/arkime/bin/node viewer.js --insecure -c /opt/arkime/etc/config.ini >> /opt/arkime/logs/viewer.log 2>&1"
