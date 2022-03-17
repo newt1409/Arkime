@@ -31,7 +31,7 @@ services:
       - ./arkime/logs:/opt/arkime/logs/:Z # log files related to arkime
       - ./arkime/pcap:/opt/arkime/pcap/:ro # pcap folder for ingesting new pcap
       - ./arkime/raw:/opt/arkime/raw/ # pcap folder for processed pcap - stored as sessions2 data
-      - ./arkime/config/config.ini:/opt/arkime/etc/config.ini:ro # Config used for arkime settings
+      - ./arkime/config/config.ini:/opt/arkime/etc/config.ini # Config used for arkime settings
       - ./suricata/logs:/opt/arkime/etc/suricata:z # Used to share alerts from suricata with arkime.
       - ./arkime/tags:/opt/arkime/tags/:Z # Used to store WISE tag files.
       - ./arkime/wise/wiseService.ini:/opt/arkime/etc/wiseService.ini:ro # Used to change the wise config file.
@@ -48,7 +48,7 @@ services:
       - CAPTURE=${CAPTURE} # Start Arkime-capture to pull off the wire and store as pcap.
       - ELASTIC_USERNAME=${ELASTIC_USERNAME}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - INTERFACE="ens33"
+      - INTERFACE=${INTERFACE}
 
 # Suricata service
   suricata:

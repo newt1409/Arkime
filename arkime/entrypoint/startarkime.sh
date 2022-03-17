@@ -5,11 +5,13 @@
 #sed -i 's/interface=.*$/interface=$INTERFACE/g' /opt/arkime/etc/config.ini.new
 #cp -f /opt/arkime/etc/config.ini.new /opt/arkime/etc/config.ini
 
-# wait for Elasticsearch
-#echo "Giving Elasticsearch time to start..."
-#sleep 20
+# change config.ini with docker variables, since ini files dont take environment variables...AND sed -i is having issues so save to a file and overwrite
+sed "s#.*elasticsearch=h.*#elasticsearch=https://$ELASTIC_USERNAME:$ELASTIC_PASSWORD@localhost:9200#" /opt/arkime/etc/config.ini > config.tmp
+cat config.tmp > /opt/arkime/etc/config.ini
+sed "s#.*interface=.*#interface=$INTERFACE#" /opt/arkime/etc/config.ini > config.tmp
+cat config.tmp > /opt/arkime/etc/config.ini
 
-if (($INIT=TRUE))
+if [ "$INIT" == "TRUE" ]
 then
   # Initialize Elasticsearch for Arkime data.
   echo "Initializing elasticsearch database."
@@ -23,10 +25,8 @@ echo "Starting WISE tagger."
 /bin/bash -c 'cd /opt/arkime/wiseService; /opt/arkime/bin/node wiseService.js --webconfig &'
 sleep 5
 
-if (($CAPTURE==TRUE))
+if [ "$CAPTURE" == "TRUE" ]
 then
-  # change config.ini with docker variables, since ini files dont take environment variables
-  sed -i "s#.*elasticsearch=h.*#elasticsearch=https://$ELASTIC_USERNAME:$ELASTIC_PASSWORD@localhost:9200#" /opt/arkime/etc/config.ini
   # Start Capture service
   echo "Starting arkime-capture."
   /bin/bash -c "/opt/arkime/bin/capture --insecure -c /opt/arkime/etc/config.ini --host $HOSTNAME >> /opt/arkime/logs/capture.log 2>&1 &"
