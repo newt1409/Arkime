@@ -9,11 +9,6 @@
 #echo "Giving Elasticsearch time to start..."
 #sleep 20
 
-#while true
-#do  
-#  sleep 2
-#done
-
 if (($INIT=TRUE))
 then
   # Initialize Elasticsearch for Arkime data.
@@ -30,6 +25,8 @@ sleep 5
 
 if (($CAPTURE==TRUE))
 then
+  # change config.ini with docker variables, since ini files dont take environment variables
+  sed -i "s#.*elasticsearch=h.*#elasticsearch=https://$ELASTIC_USERNAME:$ELASTIC_PASSWORD@localhost:9200#" /opt/arkime/etc/config.ini
   # Start Capture service
   echo "Starting arkime-capture."
   /bin/bash -c "/opt/arkime/bin/capture --insecure -c /opt/arkime/etc/config.ini --host $HOSTNAME >> /opt/arkime/logs/capture.log 2>&1 &"

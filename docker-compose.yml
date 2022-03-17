@@ -47,7 +47,7 @@ services:
       - INIT=${INIT} # Initialize Arkime db as start? Needs to be done on first startup regardless.
       - CAPTURE=${CAPTURE} # Start Arkime-capture to pull off the wire and store as pcap.
       - ELASTIC_USERNAME=${ELASTIC_USERNAME}
-      - ELASTIC_PASSWORD={ELASTIC_PASSWORD}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - INTERFACE="ens33"
 
 # Suricata service
